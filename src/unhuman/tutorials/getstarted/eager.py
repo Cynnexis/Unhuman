@@ -3,10 +3,10 @@
 # See https://www.tensorflow.org/get_started/eager
 
 import os
-import time
-import matplotlib.pyplot as plt
-from enum import Enum
 
+import matplotlib.pyplot as plt
+
+from unhuman.tutorials.getstarted.Iris import Iris
 from unhuman.utils.Stopwatch import Stopwatch
 
 sw_eager = Stopwatch(start_now=True)
@@ -38,48 +38,14 @@ train_dataset_url = "http://download.tensorflow.org/data/iris_training.csv"
 train_dataset_local_file_path = tf.keras.utils.get_file(fname=os.path.basename(train_dataset_url),
                                                         origin=train_dataset_url)
 
-print("A copy of the iris training dataset has been downloaded at from {0} to {1}.".format(train_dataset_url, train_dataset_local_file_path))
+print("A copy of the iris training dataset has been downloaded at from {0} to {1}.".format(train_dataset_url,
+                                                                                    train_dataset_local_file_path))
 
 
-class Iris(Enum):
-	"""
-	Enumerate the type of Iris for the training dataset. Each enum has an integer value which match the tutorial
-	"""
-	SETOSA = 0
-	VERSICOLOR = 1
-	VIRGINICA = 2
-	
-	@staticmethod
-	def to_str(iris) -> str:
-		if isinstance(iris, Iris):
-			if iris == Iris.SETOSA:
-				return "Iris setosa"
-			if iris == Iris.VERSICOLOR:
-				return "Iris versicolor"
-			if iris == Iris.VIRGINICA:
-				return "Iris virginica"
-		else:
-			return "none"
-
-	@staticmethod
-	def to_int(iris) -> int:
-		if isinstance(iris, Iris):
-			return int(iris)
-		else:
-			return -1
-
-	@staticmethod
-	def from_int(value: int):
-		if value == 0:
-			return Iris.SETOSA
-		elif value == 1:
-			return Iris.VERSICOLOR
-		elif value == 2:
-			return Iris.VIRGINICA
-		else:
-			return None
+# See Iris class
 
 
+# noinspection PyShadowingNames
 def parse_csv_line(line: str) -> tuple:
 	"""
 	Parse one line of a CSV file using tensorflow.
@@ -123,18 +89,17 @@ Example from a batch:
 """
 Selecting a model (as described earlier, 4 numbers (sepal length & width, petal length & width, and a label)
 See https://www.tensorflow.org/images/custom_estimators/full_network.png to see the model
-The model is a fully-connected Neural Network because it is very useful to find the relationship between the features (sepal and petal)
-and the label.
+The model is a fully-connected Neural Network because it is very useful to find the relationship between the features
+(sepal and petal) and the label.
 In this example, keras will be used as a model selector.
 Two fully-connected hidden layers containing 10 neurons each will be created. The output contains 3 neurons.
 The activation function is ReLU : f(x) = {0 if x <= 0 ; x if x > 0}.
-TODO: What is the result if we swap relu with "sigmoid"?
 """
 
 model: tf.keras.models.Model = tf.keras.Sequential([
 	tf.keras.layers.Dense(units=10, activation="relu", input_shape=(4,)), # First hidden layers, with 4 for inputs
 	tf.keras.layers.Dense(units=10, activation="relu"), # Second hidden layers, input automatically calculated
-	tf.keras.layers.Dense(units=3) # Output layer
+	tf.keras.layers.Dense(units=3)  # Output layer
 ])
 
 ### TRAINING ###
@@ -143,9 +108,11 @@ model: tf.keras.models.Model = tf.keras.Sequential([
 Warning: if there is too much entries in the training set, then the model won't generalizable (see overfitting)
 """
 
+
 # Creating a function to compute the error
 
 
+# noinspection PyShadowingNames
 def error(model: tf.keras.models.Model, x, y):
 	"""
 	Compute the error between the value returned by model(x) and the expected result y
@@ -158,6 +125,7 @@ def error(model: tf.keras.models.Model, x, y):
 	return tf.losses.sparse_softmax_cross_entropy(labels=y, logits=computed_y)
 
 
+# noinspection PyShadowingNames
 def grad(model: tf.keras.models.Model, inputs, targets):
 	"""
 	Record operations for backpropagation using the error() function.
@@ -170,12 +138,13 @@ def grad(model: tf.keras.models.Model, inputs, targets):
 		error_value = error(model, inputs, targets)
 	return tape.gradient(error_value, model.variables)
 
+
 """
 Now, the neural network needs an optimizer to minimize the error (using grad())
 See the image https://tensorflow.org/images/opt1.gif for more detail
 """
 
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01) # This hyperparameter can be adjust for better result
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01)  # This hyperparameter can be adjust for better result
 
 """
 TRAINING LOOP
@@ -199,7 +168,8 @@ for iteration in range(max_iterations):
 	for x, y in training_dataset:
 		# Optimize the model
 		grads = grad(model, x, y)
-		optimizer.apply_gradients(zip(grads, model.variables), # See https://docs.python.org/3.3/library/functions.html#zip
+		optimizer.apply_gradients(zip(grads, model.variables),
+		                          # See https://docs.python.org/3.3/library/functions.html#zip
 		                          global_step=tf.train.get_or_create_global_step())
 		
 		# Track progress
@@ -245,6 +215,7 @@ print("Training time: {:0.2f}s".format(sw_training_loop.elapsed()))
 Plot the errors and accuracy in diagrams
 """
 
+# noinspection PyTypeChecker
 fig, axes = plt.subplots(nrows=2, ncols=1, sharex=True, figsize=(12, 8))
 fig.suptitle("Training Metrics")
 
@@ -255,7 +226,7 @@ axes[1].set_ylabel("Accuracy", fontsize=14)
 axes[1].set_xlabel("Iteration", fontsize=14)
 axes[1].plot(track_accuracy)
 
-#plt.show()
+# plt.show()
 
 ### TEST ###
 
@@ -282,6 +253,7 @@ for x, y in test_dataset:
 	test_accuracy(prediction, y)
 
 print("Test set accuracy: {:.3%}".format(test_accuracy.result()))
+assert test_accuracy.result() >= 0.8
 """
 Test set accuracy: 100.000%
 """
@@ -289,8 +261,8 @@ Test set accuracy: 100.000%
 ### PREDICTIONS ###
 
 predict_dataset = tf.convert_to_tensor([
-	[5.1, 3.3, 1.7, 0.5, ],
-	[5.9, 3.0, 4.2, 1.5, ],
+	[5.1, 3.3, 1.7, 0.5],
+	[5.9, 3.0, 4.2, 1.5],
 	[6.9, 3.1, 5.4, 2.1]
 ])
 
@@ -300,12 +272,20 @@ predictions = model(predict_dataset)
 print("Predictions:")
 for i, logits in enumerate(predictions):
 	class_idx = tf.argmax(logits).numpy()
-	name = Iris.from_int(class_idx)
-	print("\tExample n°{}: Prediction: {} (logits = {})".format(i, Iris.to_str(name), logits))
+	iris = Iris.from_int(class_idx)
+	print("\tExample n°{}: Prediction: {} (logits = {})".format(i, Iris.to_str(iris), logits))
+	
+	if i == 0:
+		assert iris == Iris.SETOSA
+	elif i == 1:
+		assert iris == Iris.VERSICOLOR
+	elif i == 2:
+		assert iris == Iris.VIRGINICA
+	else:
+		raise AssertionError("Iteration n°{} not expected".format(i))
 
 """
 PRINT:
-
 Predictions:
 	Example n°0: Prediction: Iris setosa (logits = [  3.5572357    0.05438219 -10.779386  ])
 	Example n°1: Prediction: Iris versicolor (logits = [-3.243308    1.7982299  -0.28065988])
