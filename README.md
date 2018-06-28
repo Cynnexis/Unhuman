@@ -37,17 +37,17 @@ No one yet.
 The project uses Git as a version control system.
 
 ## Author ##
-This project has been made by **Valentin Berger** (username: **Cynnexis**)
+This project has been made by **Valentin Berger** (username: **[Cynnexis](https://github.com/Cynnexis)**)
 
 ## License ##
-This project is under the **AGPL-3.0 License** - see `LICENSE.txt` for more detail (I know that nobody will look at this file, licenses are so boring...)
+This project is under the **AGPL-3.0 License** - see [`LICENSE.txt`](https://github.com/Cynnexis/Unhuman/blob/master/LICENSE.txt) for more detail (I know that nobody will look at this file, licenses are so boring...)
 
 ## Acknowledgements ##
 I would like to thank [@PurpleBooth](https://gist.github.com/PurpleBooth) for posting a [gist about a README layout](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) (you may find some similarities between this README and the template).
 
-[tensorflow-logo]: https://www.tensorflow.org/_static/643e84ea67/images/tensorflow/favicon.png
 [badge-license]: https://img.shields.io/badge/license-AGPL--3.0-green.svg?longCache=true&style=flat
 [badge-tutorial]: https://img.shields.io/badge/tutorial-yes-brightgreen.svg?longCache=true&style=flat
 [badge-serious]: https://img.shields.io/badge/serious-no-red.svg?longCache=true&style=flat
 [badge-language]: https://img.shields.io/badge/language-python-yellow.svg?longCache=true&style=flat
 [badge-subject]: https://img.shields.io/badge/subject-tensorflow-orange.svg?longCache=true&style=flat
+[tensorflow-logo]: https://www.tensorflow.org/_static/643e84ea67/images/tensorflow/favicon.png
