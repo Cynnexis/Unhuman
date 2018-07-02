@@ -226,7 +226,7 @@ axes[1].set_ylabel("Accuracy", fontsize=14)
 axes[1].set_xlabel("Iteration", fontsize=14)
 axes[1].plot(track_accuracy)
 
-# plt.show()
+#plt.show()
 
 ### TEST ###
 
