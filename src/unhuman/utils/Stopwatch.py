@@ -5,8 +5,8 @@ import time
 class Stopwatch:
 	
 	def __init__(self, start_now=False):
-		self.__beginning: float = 0.
-		self.__end: float = 0.
+		self.__beginning = 0.
+		self.__end = 0.
 		self.__is_running = False
 		
 		if start_now:

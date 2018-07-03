@@ -62,7 +62,7 @@ def parse_csv_line(line: str) -> tuple:
 
 
 # Load the CSV file (line by line)
-training_dataset: tf.data.Dataset = tf.data.TextLineDataset(train_dataset_local_file_path)
+training_dataset = tf.data.TextLineDataset(train_dataset_local_file_path)
 
 # Skip the header
 training_dataset = training_dataset.skip(1)
@@ -96,7 +96,7 @@ Two fully-connected hidden layers containing 10 neurons each will be created. Th
 The activation function is ReLU : f(x) = {0 if x <= 0 ; x if x > 0}.
 """
 
-model: tf.keras.models.Model = tf.keras.Sequential([
+model = tf.keras.Sequential([
 	tf.keras.layers.Dense(units=10, activation="relu", input_shape=(4,)), # First hidden layers, with 4 for inputs
 	tf.keras.layers.Dense(units=10, activation="relu"), # Second hidden layers, input automatically calculated
 	tf.keras.layers.Dense(units=3)  # Output layer
