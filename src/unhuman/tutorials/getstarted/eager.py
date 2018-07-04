@@ -3,6 +3,7 @@
 # See https://www.tensorflow.org/get_started/eager
 
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import matplotlib.pyplot as plt
 

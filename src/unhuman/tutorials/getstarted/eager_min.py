@@ -2,10 +2,14 @@
 # Code duplication from eager.py, but minimize
 
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 import tensorflow as tf
 import tensorflow.contrib.eager as tfe
 
 tf.enable_eager_execution()
+
+batch_size = 32
 
 train_dataset_url = "http://download.tensorflow.org/data/iris_training.csv"
 test_dataset_url = "http://download.tensorflow.org/data/iris_test.csv"
@@ -28,7 +32,7 @@ training_dataset = tf.data.TextLineDataset(train_dataset_local_file_path)
 training_dataset = training_dataset.skip(1)
 training_dataset = training_dataset.map(parse_csv_line)
 training_dataset = training_dataset.shuffle(buffer_size=1000)
-training_dataset = training_dataset.batch(batch_size=32)
+training_dataset = training_dataset.batch(batch_size=batch_size)
 
 model = tf.keras.Sequential([
 	tf.keras.layers.Dense(units=10, activation="relu", input_shape=(4,)),
@@ -56,12 +60,13 @@ test_dataset = test_dataset.map(parse_csv_line)
 test_dataset = test_dataset.shuffle(1000)
 test_dataset = test_dataset.batch(32)
 
-# Evaluation
-
 test_accuracy = tfe.metrics.Accuracy()
 
+test_outputs = []
+
 for x, y in test_dataset:
-	prediction = tf.argmax(model(x), axis=1, output_type=tf.int32)
+	test_outputs.append(model(x))
+	prediction = tf.argmax(test_outputs[-1], axis=1, output_type=tf.int32)
 	test_accuracy(prediction, y)
 
 print("Test set accuracy: {:.3%}".format(test_accuracy.result()))
