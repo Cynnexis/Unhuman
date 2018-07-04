@@ -4,6 +4,7 @@
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+print("test")
 
 import matplotlib.pyplot as plt
 
