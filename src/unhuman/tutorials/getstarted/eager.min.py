@@ -48,7 +48,9 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01)
 for iteration in range(200+1):
 	for x, y in training_dataset:
 		grads = grad(model, x, y)
-		optimizer.apply_gradients(zip(grads, model.variables), global_step=tf.train.get_or_create_global_step())
+		optimizer.apply_gradients(grads_and_vars=zip(grads, model.variables),
+		                          global_step=tf.train.get_or_create_global_step(),
+		                          name="optimizer_log")
 
 test_dataset = tf.data.TextLineDataset(test_dataset_local_file_path)
 test_dataset = test_dataset.skip(1)

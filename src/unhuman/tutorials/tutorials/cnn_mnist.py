@@ -143,6 +143,25 @@ def cnn_model(features: dict, labels, mode: tf.estimator.ModeKeys = tf.estimator
 		return tf.estimator.EstimatorSpec(mode=mode, loss=error, train_op=train_op)
 	
 	# Add evaluation metrics for EVAL mode
+	
+	"""
+	Traceback (most recent call last):
+	  File "C:/Users/Valentin/PyCharmProjects/Unhuman/src/unhuman/tutorials/tutorials/cnn_mnist.py", line 209, in <module>
+		tf.app.run(main)
+	  File "C:\ProgramData\Anaconda3\envs\Tensorflow\lib\site-packages\tensorflow\python\platform\app.py", line 126, in run
+		_sys.exit(main(argv))
+	  File "C:/Users/Valentin/PyCharmProjects/Unhuman/src/unhuman/tutorials/tutorials/cnn_mnist.py", line 201, in main
+		eval_results = mnist_classifier.evaluate(input_fn=eval_input)
+	  File "C:\ProgramData\Anaconda3\envs\Tensorflow\lib\site-packages\tensorflow\python\estimator\estimator.py", line 425, in evaluate
+		name=name)
+	  File "C:\ProgramData\Anaconda3\envs\Tensorflow\lib\site-packages\tensorflow\python\estimator\estimator.py", line 1087, in _evaluate_model
+		features, labels, model_fn_lib.ModeKeys.EVAL, self.config)
+	  File "C:\ProgramData\Anaconda3\envs\Tensorflow\lib\site-packages\tensorflow\python\estimator\estimator.py", line 831, in _call_model_fn
+		model_fn_results = self._model_fn(features=features, **kwargs)
+	  File "C:/Users/Valentin/PyCharmProjects/Unhuman/src/unhuman/tutorials/tutorials/cnn_mnist.py", line 147, in cnn_model
+		"accuracy": tf.metrics.accuracy(labels=labels, predictions=predictions["classes"])
+	KeyError: 'classes'
+	"""
 	eval_metrics_ops = {
 		"accuracy": tf.metrics.accuracy(labels=labels, predictions=predictions["classes"])
 	}
@@ -187,7 +206,7 @@ def main(unused_argv):
 	# The number of step is normally 20000, but the computer would take about 1h to compute it, so we decrease it to 1000
 	mnist_classifier.train(
 		input_fn=training_inputs,
-		steps=1000,
+		steps=200,
 		hooks=[logging_hook]
 	)
 	
@@ -198,7 +217,7 @@ def main(unused_argv):
 		num_epochs=1,
 		shuffle=False
 	)
-	eval_results = mnist_classifier.evaluate(input_fn=eval_input)
+	eval_results = mnist_classifier.evaluate(input_fn=eval_input) # ERROR
 	
 	# Print results
 	print(eval_results)
