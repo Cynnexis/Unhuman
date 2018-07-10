@@ -3,13 +3,11 @@
 # See https://www.tensorflow.org/get_started/eager
 
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-print("test")
 
 import matplotlib.pyplot as plt
 
-from unhuman.tutorials.getstarted.Iris import Iris
-from unhuman.utils.Stopwatch import Stopwatch
+from .Iris import Iris
+from ...utils.Stopwatch import Stopwatch
 
 sw_eager = Stopwatch(start_now=True)
 import tensorflow as tf

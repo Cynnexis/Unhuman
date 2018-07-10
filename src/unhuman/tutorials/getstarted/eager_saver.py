@@ -25,14 +25,17 @@ with tf.Graph().as_default():
 		}
 		
 		outputs = {
-			"prediction": training_labels
+			"prediction": training_labels[-1]
 		}
+		
+		print("DEBUG> inputs (" + str(type(inputs)) + ") = " + str(inputs) + "\n")
+		print("DEBUG> outputs (" + str(type(outputs)) + ") = " + str(outputs) + "\n")
 		
 		tf.saved_model.simple_save(
 			session=sess,
 			export_dir=models_dir,
 			inputs=inputs,
-			outputs=test_outputs
+			outputs=outputs
 		)
 		
 		print("model saved")
