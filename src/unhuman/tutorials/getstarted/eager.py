@@ -4,7 +4,6 @@
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-print("test")
 
 import matplotlib.pyplot as plt
 
@@ -215,7 +214,7 @@ print("Training time: {:0.2f}s".format(sw_training_loop.elapsed()))
 ### VIEW GRAPH ###
 """
 Plot the errors and accuracy in diagrams
-"""
+""
 
 # noinspection PyTypeChecker
 fig, axes = plt.subplots(nrows=2, ncols=1, sharex=True, figsize=(12, 8))
@@ -229,6 +228,7 @@ axes[1].set_xlabel("Iteration", fontsize=14)
 axes[1].plot(track_accuracy)
 
 #plt.show()
+"""
 
 ### TEST ###
 
