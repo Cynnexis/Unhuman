@@ -229,3 +229,5 @@ $RECYCLE.BIN/
 
 env
 env/*
+log
+log/*

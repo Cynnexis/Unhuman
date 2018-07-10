@@ -3,23 +3,27 @@
 # See https://stackoverflow.com/questions/33759623/tensorflow-how-to-save-restore-a-model
 
 import tensorflow as tf
+tf.enable_eager_execution()
 
-from .eager_min import *
+from unhuman.tutorials.getstarted.eager_class import EagerClass
+
+em = EagerClass.main()
 
 models_dir = "res/saved_models/eager"
 
-with tf.Graph().as_default():
+g = tf.Graph()
+with g.as_default():
 	with tf.Session() as sess:
 		
 		training_features = []
 		training_labels = []
 		
-		for x, y in training_dataset:
+		for x, y in em.training_dataset:
 			training_features.append(x)
 			training_labels.append(y)
 		
 		inputs = {
-			"batch_size": batch_size,
+			"batch_size": em.batch_size,
 			"training_features": training_features,
 			"training_labels": training_labels
 		}

@@ -9,8 +9,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from unhuman.utils.Stopwatch import Stopwatch
-import argparse
+from unhuman.tutorials.getstarted import logdir
 import numpy as np
 
 import tensorflow as tf
@@ -195,11 +194,19 @@ def main(unused_argv):
 		shuffle=False
 	)
 	eval_results = mnist_classifier.evaluate(input_fn=eval_input)
+	tf.summary.text(name="eval_results", tensor=tf.constant(str(eval_results)))
 	
 	# Print results
 	print(eval_results)
 
 
 if __name__ == "__main__":
-	tf.logging.set_verbosity(tf.logging.INFO)
-	tf.app.run(main)
+	g = tf.Graph()
+	with g.as_default():
+		with tf.Session() as sess:
+			write = tf.summary.FileWriter(logdir=logdir, graph=sess.graph)
+			
+			tf.logging.set_verbosity(tf.logging.INFO)
+			tf.app.run(main)
+else:
+	print("Found __name__: " + __name__)
