@@ -63,14 +63,12 @@ class EagerClass:
 		
 		self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01)
 		
-		if display_every_n_iteration > 0:
-			track_error = []
-			track_accuracy = []
+		track_error = []
+		track_accuracy = []
 		
 		for iteration in range(200 + 1):
-			if display_every_n_iteration > 0:
-				iteration_error_average = tfe.metrics.Mean()
-				iteration_accuracy = tfe.metrics.Accuracy()
+			iteration_error_average = tfe.metrics.Mean()
+			iteration_accuracy = tfe.metrics.Accuracy()
 			
 			for x, y in self.training_dataset:
 				grads = grad(self.model, x, y)
@@ -89,7 +87,7 @@ class EagerClass:
 			if display_every_n_iteration > 0 and iteration % display_every_n_iteration == 0:
 				print("Iteration n°{0:03d}:\n\tError: {1:.3f}\n\tAccuracy: {2:.3%}\n".format(iteration, track_error[-1],
 				                                                                             track_accuracy[-1]))
-		
+			
 			# TensorBoard (see eager_tensorboard.py)
 			tf.summary.tensor_summary(
 				name="Error",

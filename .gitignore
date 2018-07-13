@@ -231,3 +231,5 @@ env
 env/*
 log
 log/*
+src/tensorflow
+src/tensorflow/*
