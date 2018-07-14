@@ -9,13 +9,13 @@ config:
     bias_constraint: null
     bias_initializer:
       class_name: Zeros
-      config: {dtype: float32}
+      config: {}
     bias_regularizer: null
     dtype: float32
     kernel_constraint: null
     kernel_initializer:
       class_name: VarianceScaling
-      config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0, seed: null}
+      config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
     kernel_regularizer: null
     name: dense_1
     trainable: true
@@ -28,13 +28,12 @@ config:
     bias_constraint: null
     bias_initializer:
       class_name: Zeros
-      config: {dtype: float32}
+      config: {}
     bias_regularizer: null
-    dtype: float32
     kernel_constraint: null
     kernel_initializer:
       class_name: VarianceScaling
-      config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0, seed: null}
+      config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
     kernel_regularizer: null
     name: dense_2
     trainable: true
@@ -47,17 +46,16 @@ config:
     bias_constraint: null
     bias_initializer:
       class_name: Zeros
-      config: {dtype: float32}
+      config: {}
     bias_regularizer: null
-    dtype: float32
     kernel_constraint: null
     kernel_initializer:
       class_name: VarianceScaling
-      config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0, seed: null}
+      config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
     kernel_regularizer: null
     name: dense_3
     trainable: true
     units: 10
     use_bias: true
-keras_version: 2.1.5-tf
+keras_version: 2.2.0
 
